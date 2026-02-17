@@ -37,6 +37,7 @@ jobs:
 
       - name: Verify nvim starts and plugins load
         run: |
+          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
           nvim --version | head -1
           nvim --headless "+Lazy! sync" +qa 2>&1 || true
           nvim --headless -c 'echo "nvim OK"' -c 'qa' 2>&1
