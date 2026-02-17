@@ -114,7 +114,7 @@ install_uv() {
     info "Installing uv (Python package manager)..."
     curl -LsSf https://astral.sh/uv/install.sh | sh
     # Source the env so uv is available in this session
-    [[ -f "$HOME/.local/bin/env" ]] && source "$HOME/.local/bin/env"
+    if [[ -f "$HOME/.local/bin/env" ]]; then source "$HOME/.local/bin/env"; fi
 }
 
 install_nvm() {
@@ -133,7 +133,7 @@ install_rust() {
     fi
     info "Installing Rust..."
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-    [[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+    if [[ -f "$HOME/.cargo/env" ]]; then source "$HOME/.cargo/env"; fi
 }
 
 # ── Install Claude Code ─────────────────────────────────────────
@@ -145,7 +145,7 @@ install_claude_code() {
     info "Installing Claude Code..."
     # Ensure nvm/node is available
     export NVM_DIR="$HOME/.nvm"
-    [[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh"
+    if [[ -s "$NVM_DIR/nvm.sh" ]]; then source "$NVM_DIR/nvm.sh"; fi
     if ! command_exists node; then
         info "Installing Node.js via nvm (needed for Claude Code)..."
         nvm install --lts
