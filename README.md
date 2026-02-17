@@ -77,14 +77,26 @@ alias myproject="cd ~/work/myproject"
 # Clone private repos, set up credentials, etc.
 ```
 
+## Updating
+
+Run `./update.sh` to update everything to the latest versions:
+
+```bash
+~/dev/dotfiles/update.sh
+```
+
+Updates: brew packages, uv, rust, Claude Code, nvim plugins, tmux plugins. Prints a version summary when done.
+
 ## CI
 
-Nightly GitHub Actions workflow tests `install.sh` on Ubuntu and macOS. Verifies:
+**Install tests** (nightly + push/PR) — tests `install.sh` on Ubuntu, macOS, and Amazon Linux 2023. The Amazon Linux job runs `curl | bash` from a bare container to mirror the real bootstrap flow. Verifies:
 
 - All tools install and are on PATH
 - Neovim starts and plugins load
 - Symlinks are correct
 - Zsh loads without errors
+
+**Staleness check** (weekly, Mondays 09:00 UTC) — checks for outdated brew packages, rust updates, Claude Code updates, and nvim plugin updates. Opens a GitHub issue with the `staleness` label if anything is behind.
 
 ## Re-running
 
