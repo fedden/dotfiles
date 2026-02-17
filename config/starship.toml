@@ -1,0 +1,85 @@
+# Starship prompt — sourcerer palette
+# Purple accent (#a88af8), sage green (#87af87), warm orange (#d7875f),
+# warm grey (#918175), light text (#c2c2b0)
+
+format = """
+$directory\
+$git_branch\
+$git_status\
+$python\
+$nodejs\
+$terraform\
+$rust\
+$c\
+$docker_context\
+$cmd_duration\
+$line_break\
+$character"""
+
+[character]
+success_symbol = "[❯](bold #a88af8)"
+error_symbol = "[❯](bold #d75f5f)"
+
+[directory]
+style = "bold #c2c2b0"
+truncation_length = 3
+truncation_symbol = ".../"
+read_only = " ro"
+read_only_style = "#d75f5f"
+
+[git_branch]
+symbol = " "
+style = "#87af87"
+format = "[$symbol$branch]($style) "
+
+[git_status]
+style = "#d7875f"
+format = '([$all_status$ahead_behind]($style) )'
+modified = "~"
+untracked = "?"
+staged = "+"
+deleted = "-"
+ahead = "^${count}"
+behind = "v${count}"
+
+[python]
+symbol = " "
+style = "#87afaf"
+format = '[${symbol}${version}( \($virtualenv\))]($style) '
+detect_extensions = ["py"]
+detect_files = ["pyproject.toml", "requirements.txt"]
+
+[nodejs]
+symbol = " "
+style = "#87af87"
+format = "[$symbol$version]($style) "
+detect_files = ["package.json"]
+
+[terraform]
+symbol = "tf "
+style = "#a88af8"
+format = "[$symbol$version]($style) "
+
+[rust]
+symbol = " "
+style = "#d7875f"
+format = "[$symbol$version]($style) "
+
+[c]
+symbol = "C "
+style = "#918175"
+format = "[$symbol$version]($style) "
+
+[docker_context]
+symbol = " "
+style = "#87afaf"
+format = "[$symbol$context]($style) "
+only_with_files = true
+
+[cmd_duration]
+min_time = 3_000
+style = "#918175"
+format = "[$duration]($style) "
+
+[line_break]
+disabled = false

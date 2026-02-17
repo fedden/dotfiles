@@ -1,0 +1,37 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# Node
+node_modules/
+
+# Build artifacts
+build/
+dist/
+*.so
+*.o
+
+# ML / data
+*.ckpt
+*.safetensors
+wandb/
+lightning_logs/
+
+# Cloud / infra
+.terraform/
+*.tfstate
+*.tfstate.backup
+
+# IDE / editor
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store

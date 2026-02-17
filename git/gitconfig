@@ -1,0 +1,16 @@
+[user]
+	email = leonfedden@gmail.com
+	name = fedden
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[init]
+	defaultBranch = main
+[core]
+	editor = nvim
+[pull]
+	rebase = true
+[push]
+	autoSetupRemote = true

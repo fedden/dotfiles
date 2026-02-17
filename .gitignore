@@ -1,0 +1,5 @@
+# Local-only files (never tracked)
+.env
+*.bak
+.DS_Store
+.zcompdump*
