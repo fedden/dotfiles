@@ -1,3 +1,9 @@
+---
+name: nvim
+description: Neovim configuration reference — keybindings, LSP servers, completion, diagnostics, tips and techniques. Use when answering questions about nvim setup, keybindings, or vim techniques.
+user-invocable: true
+---
+
 # Neovim Skills Reference
 
 Quick reference for the modernised nvim + tmux setup. Config lives in `~/.config/nvim/`.
@@ -73,7 +79,7 @@ First use will prompt for target pane (e.g. `{right-of}`). Useful for sending Py
 
 ## Escape behaviour
 
-Pressing `Esc` in normal mode clears: search highlights, quickfix window, and preview window. Muscle memory from the old config — double-escape if something doesn't clear.
+Pressing `Esc` in normal mode clears: search highlights, quickfix window, and preview window.
 
 ## Arrow keys
 
@@ -321,8 +327,6 @@ Syntax highlighting via treesitter for: python, lua, javascript, typescript, tsx
 
 ## Completion Stack
 
-No conflicts (the old config had three competing completers):
-
 | Layer | What it does | Trigger |
 |-------|-------------|---------|
 | nvim-cmp | Popup menu: LSP symbols, buffer words, file paths, snippets | `C-n`/`C-p` to navigate, `CR` to confirm |
@@ -341,37 +345,6 @@ Both `:Files` and `:Rg` respect:
 3. `.ignore` in any project root (project-specific overrides)
 
 `:Files` uses `rg --files --hidden` under the hood (set via `FZF_DEFAULT_COMMAND`).
-
----
-
-## Tmux
-
-### Key bindings
-
-| Key | Action |
-|-----|--------|
-| `prefix + \|` | Split pane horizontally (inherits cwd) |
-| `prefix + -` | Split pane vertically (inherits cwd) |
-| `prefix + c` | New window (inherits cwd) |
-| `C-h/j/k/l` | Navigate panes (shared with nvim splits) |
-| `prefix + I` | Install tmux plugins (TPM) |
-
-### Status bar (sourcerer theme)
-
-Left: `[session name]` — Right: `git-branch | hostname | HH:MM`
-
-Hostname is visible so you know which devbox you're on when SSH'd.
-
-### Session persistence
-
-- **tmux-resurrect**: saves/restores sessions (pane layout, working directories, running programs)
-- **tmux-continuum**: auto-saves every 15 minutes, auto-restores on tmux start
-
-Sessions survive devbox reboots. Manual save: `prefix + C-s`. Manual restore: `prefix + C-r`.
-
-### Terminal colours
-
-True colour enabled (`tmux-256color` + RGB). Nvim colourscheme renders correctly inside tmux.
 
 ---
 
@@ -396,24 +369,4 @@ True colour enabled (`tmux-256color` + RGB). Nvim colourscheme renders correctly
 │       ├── ui.lua              # lualine (sourcerer theme)
 │       ├── copilot.lua         # GitHub Copilot
 │       └── tmux.lua            # vim-tmux-navigator
-~/.tmux.conf                    # Tmux config
-~/.ignore                       # Global ripgrep ignore patterns
 ```
-
-## Backups
-
-Old configs backed up at:
-- `~/.vimrc.bak`
-- `~/.config/nvim/init.vim.bak`
-- `~/.tmux.conf.bak`
-
-Restore with: `cp ~/.vimrc.bak ~/.vimrc && cp ~/.config/nvim/init.vim.bak ~/.config/nvim/init.vim && rm ~/.config/nvim/init.lua && cp ~/.tmux.conf.bak ~/.tmux.conf`
-
----
-
-## Upgrades performed
-
-- neovim: 0.9.5 -> 0.11.6
-- tree-sitter CLI: 0.20.9 -> 0.26.5
-- ripgrep: installed 15.1.0 (was only available as Claude Code alias)
-- TPM: installed (was declared but missing)

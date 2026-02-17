@@ -1,3 +1,9 @@
+---
+name: shell
+description: Shell and CLI tools reference — zsh config, modern CLI replacements (eza, bat, fd, fzf, zoxide, starship), aliases, keybindings. Use when answering questions about shell setup, aliases, or CLI tools.
+user-invocable: true
+---
+
 # Shell Skills Reference
 
 Zsh config without oh-my-zsh. Config lives in `~/.zshrc`, aliases in `~/.aliases`, prompt in `~/.config/starship.toml`.
@@ -185,25 +191,6 @@ nvm is lazy-loaded — it only initialises when you first run `nvm`, `node`, `np
 
 ---
 
-## What was removed
-
-- **oh-my-zsh** — replaced with raw zsh + 2 brew plugins. Faster startup, less magic.
-- **powerlevel10k** — replaced with starship. Simpler config (one toml file), works across shells.
-- **conda init block** — was pointing to `/Users/kqrp472/` (wrong user, from a devbox). Dead code.
-- **Manual git config** — was in .zshrc, belongs in .gitconfig.
-- **k2_ai_paper_convert_tree** — large function moved out. The simpler 1col/2col functions are still there.
-
----
-
-## Backups
-
-- `~/.zshrc.bak` — previous zshrc (oh-my-zsh + p10k)
-- `~/.aliases.bak` — previous aliases
-
-Restore with: `cp ~/.zshrc.bak ~/.zshrc && cp ~/.aliases.bak ~/.aliases`
-
----
-
 ## Tips
 
 ### Use history aggressively
@@ -217,9 +204,9 @@ Up/Down arrows also do prefix search: type `git` then press Up to cycle through 
 Stop typing full paths. After you've visited a directory a few times, just type `cd <fragment>`:
 
 ```bash
-cd proj       # → ~/dev/myproject
-cd front      # → ~/dev/myproject/frontend
-cd terra      # → ~/dev/myproject/infra (or wherever you go most)
+cd proj       # -> ~/dev/myproject
+cd front      # -> ~/dev/myproject/frontend
+cd terra      # -> ~/dev/myproject/infra (or wherever you go most)
 ```
 
 ### Pipe into bat
@@ -245,7 +232,7 @@ bat $(fd -e py | fzf --preview 'bat --color=always {}')  # Preview files
 ```bash
 cd ~/dev/myproject/backend
 cd ~/dev/myproject/frontend
-cd -        # back to pipeline (like browser back button)
+cd -        # back to backend (like browser back button)
 dirs -v     # show the full stack with numbers
 cd ~2       # jump to stack entry 2
 ```

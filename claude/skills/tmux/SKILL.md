@@ -1,3 +1,9 @@
+---
+name: tmux
+description: Tmux configuration reference — keybindings, pane/window/session management, copy mode, status bar, plugins. Use when answering questions about tmux setup or keybindings.
+user-invocable: true
+---
+
 # Tmux Skills Reference
 
 Quick reference for the modernised tmux setup. Config lives in `~/.tmux.conf`.
@@ -140,15 +146,15 @@ Mouse is enabled but keyboard-first workflow is faster for everything except cas
 ## Status Bar
 
 ```
-┌────────────────────────────────────────────────────────────────────┐
+┌──────────────────────────────────────────────────────────────────┐
 │ SESSION  │ 0:nvim  1:zsh  2:logs │  branch | ~/path | host | HH:MM │
-└────────────────────────────────────────────────────────────────────┘
+└──────────────────────────────────────────────────────────────────┘
 ```
 
 - **Position:** top of screen
 - **Left:** session name (purple accent)
 - **Centre:** window tabs (purple = active, dim = inactive, orange = activity)
-- **Right:** git branch (green) | pane path (grey) | hostname | time (purple)
+- **Right:** git branch (green) | hostname | time (purple)
 
 The hostname is visible so you know which devbox you're on when SSH'd.
 
@@ -230,16 +236,6 @@ Useful for grabbing training logs or error output. Also works on other panes: `t
 
 **Tip:** `prefix + M-4` (main vertical) is great for the classic "vim left, terminal right" layout.
 
-### Reloading config
-
-After editing `~/.tmux.conf`:
-
-```
-prefix + : then type "source-file ~/.tmux.conf"
-```
-
-Or from the shell: `tmux source-file ~/.tmux.conf`
-
 ### Common tmux commands
 
 ```bash
@@ -261,11 +257,3 @@ tmux kill-server                     # Kill everything
 | tmux-yank | System clipboard integration for copy mode |
 | tmux-resurrect | Save/restore sessions (layout, cwd, programs) |
 | tmux-continuum | Auto-save every 15min, auto-restore on start |
-
----
-
-## Config location
-
-`~/.tmux.conf` — single file, no subdirectories.
-
-Backup at `~/.tmux.conf.bak`.

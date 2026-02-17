@@ -202,6 +202,12 @@ symlink_dotfiles() {
     # Git
     link_file "$DOTFILES_DIR/git/gitconfig" "$HOME/.gitconfig"
 
+    # Claude Code
+    link_file "$DOTFILES_DIR/claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
+    link_file "$DOTFILES_DIR/claude/skills/nvim" "$HOME/.claude/skills/nvim"
+    link_file "$DOTFILES_DIR/claude/skills/tmux" "$HOME/.claude/skills/tmux"
+    link_file "$DOTFILES_DIR/claude/skills/shell" "$HOME/.claude/skills/shell"
+
     ok "All dotfiles symlinked"
 }
 

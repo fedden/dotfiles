@@ -24,10 +24,11 @@ curl -fsSL https://raw.githubusercontent.com/fedden/dotfiles/main/install.sh \
 | **zsh** | `shell/zshrc` | Shell — no framework, fast startup, fzf + zoxide |
 | **starship** | `config/starship.toml` | Prompt — cross-shell, sourcerer palette |
 | **git** | `git/gitconfig` | Git defaults |
+| **claude code** | `claude/` | Personal CLAUDE.md + skills (nvim, tmux, shell reference) |
 
 ### CLI tools installed
 
-`eza` `bat` `fd` `fzf` `ripgrep` `zoxide` `starship` `gh`
+`eza` `bat` `fd` `fzf` `ripgrep` `zoxide` `starship` `gh` `claude-code`
 
 ### Language toolchains
 
@@ -56,10 +57,12 @@ tmux/
   tmux.conf      Tmux config
 git/
   gitconfig      Git defaults
-skills/
-  nvim.md        Neovim reference
-  tmux.md        Tmux reference
-  shell.md       Shell/CLI reference
+claude/
+  CLAUDE.md      Personal preferences (symlinked to ~/.claude/CLAUDE.md)
+  skills/
+    nvim/        Neovim reference skill (/nvim)
+    tmux/        Tmux reference skill (/tmux)
+    shell/       Shell/CLI reference skill (/shell)
 install.sh       Bootstrap script
 ```
 
