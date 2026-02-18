@@ -267,8 +267,10 @@ setup_github_auth() {
     # Rewrite SSH GitHub URLs to HTTPS so that dependencies pinned to
     # git+ssh:// (e.g. in pyproject.toml) use the token instead of
     # requiring SSH keys and known_hosts on the machine.
-    git config --global url."https://x-access-token:${token}@github.com/".insteadOf "ssh://git@github.com/"
-    git config --global url."https://x-access-token:${token}@github.com/".insteadOf "git@github.com:"
+    # --add is required: without it each call overwrites the previous
+    # insteadOf value (they share the same config key).
+    git config --global --add url."https://x-access-token:${token}@github.com/".insteadOf "ssh://git@github.com/"
+    git config --global --add url."https://x-access-token:${token}@github.com/".insteadOf "git@github.com:"
     export GITHUB_TOKEN="$token"
     ok "GitHub credentials configured"
 }
