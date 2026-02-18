@@ -102,10 +102,8 @@ zstyle ':completion:*:descriptions' format '%F{#a88af8}-- %d --%f'
 # uv shell completion
 command -v uvx &>/dev/null && eval "$(uvx --generate-shell-completion zsh)"
 
-# ── Key bindings ────────────────────────────────────────────────
+# ── Key bindings (base) ────────────────────────────────────────
 bindkey -e  # emacs mode (standard: C-a, C-e, C-r, C-w, etc.)
-bindkey '^[[A' history-search-backward  # Up arrow: history search
-bindkey '^[[B' history-search-forward   # Down arrow: history search
 
 # ── Defaults ────────────────────────────────────────────────────
 export EDITOR="nvim"
@@ -157,6 +155,16 @@ elif [[ -f /home/linuxbrew/.linuxbrew/share/zsh-syntax-highlighting/zsh-syntax-h
 elif [[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
     source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
+
+# ── Key bindings (after plugins so nothing overwrites them) ────
+# Up/Down: prefix history search — type partial command, then arrow to cycle.
+autoload -U up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey '^[[A' up-line-or-beginning-search
+bindkey '^[[B' down-line-or-beginning-search
+bindkey '^[OA' up-line-or-beginning-search
+bindkey '^[OB' down-line-or-beginning-search
 
 # ── Private hook (company-specific setup, not tracked) ──────────
 [[ -f "$HOME/.dotfiles.private.sh" ]] && source "$HOME/.dotfiles.private.sh"
