@@ -1,3 +1,11 @@
+# ── Fix terminal type over SSH ────────────────────────────────
+# xterm-kitty causes ZLE rendering issues (character doubling) over SSH
+# because kitty-specific escape sequences don't survive the transport.
+# Fall back to xterm-256color which gives full colour without the quirks.
+if [[ -n "$SSH_CONNECTION" ]] && [[ "$TERM" == "xterm-kitty" ]]; then
+    export TERM=xterm-256color
+fi
+
 # ── Environment & secrets (local, not tracked) ──────────────────
 [[ -f "$HOME/.env" ]] && source "$HOME/.env"
 
