@@ -263,9 +263,14 @@ setup_github_auth() {
         # git clone still works even without full gh CLI auth.
         warn "gh auth login failed — configuring git credentials directly"
         git config --global url."https://x-access-token:${token}@github.com/".insteadOf "https://github.com/"
-        ok "Git HTTPS credentials configured"
     fi
+    # Rewrite SSH GitHub URLs to HTTPS so that dependencies pinned to
+    # git+ssh:// (e.g. in pyproject.toml) use the token instead of
+    # requiring SSH keys and known_hosts on the machine.
+    git config --global url."https://x-access-token:${token}@github.com/".insteadOf "ssh://git@github.com/"
+    git config --global url."https://x-access-token:${token}@github.com/".insteadOf "git@github.com:"
     export GITHUB_TOKEN="$token"
+    ok "GitHub credentials configured"
 }
 
 # ── Set default shell to zsh ───────────────────────────────────
