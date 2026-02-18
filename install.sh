@@ -272,7 +272,15 @@ set_default_shell() {
         echo "$zsh_path" | sudo tee -a /etc/shells >/dev/null
     fi
     info "Setting default shell to zsh..."
-    sudo chsh -s "$zsh_path" "$(whoami)" 2>/dev/null || chsh -s "$zsh_path" 2>/dev/null || warn "Could not change shell (do it manually: chsh -s $zsh_path)"
+    # sudo chsh works without a password prompt; bare chsh needs PAM (hangs
+    # without a tty), so we only fall back to it when stdin is a terminal.
+    if sudo chsh -s "$zsh_path" "$(whoami)" 2>/dev/null; then
+        ok "Default shell changed to zsh"
+    elif [[ -t 0 ]] && chsh -s "$zsh_path"; then
+        ok "Default shell changed to zsh"
+    else
+        warn "Could not change shell (do it manually: chsh -s $zsh_path)"
+    fi
 }
 
 # ── fzf key bindings install ───────────────────────────────────

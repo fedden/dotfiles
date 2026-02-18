@@ -45,4 +45,5 @@ alias reload="source ~/.zshrc"
 alias path='echo $PATH | tr ":" "\n"'
 alias ports="lsof -iTCP -sTCP:LISTEN -P -n"
 alias myip="curl -s ifconfig.me"
+alias kssh="kitty +kitten ssh"  # use kssh when you want Kitty's SSH kitten
 alias weather="curl wttr.in/?format=3"
