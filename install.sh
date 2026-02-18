@@ -249,8 +249,14 @@ setup_github_auth() {
         return
     fi
     info "Authenticating with GitHub..."
-    echo "$GITHUB_TOKEN" | gh auth login --with-token
-    gh auth setup-git
+    # Temporarily unset GITHUB_TOKEN so gh reads the token from stdin
+    # instead of conflicting with the env var (which causes it to hang
+    # with an interactive prompt in non-tty environments).
+    local token="$GITHUB_TOKEN"
+    unset GITHUB_TOKEN
+    printf '%s\n' "$token" | gh auth login --with-token
+    gh auth setup-git < /dev/null
+    export GITHUB_TOKEN="$token"
     ok "GitHub authenticated"
 }
 
