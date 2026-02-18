@@ -33,6 +33,13 @@ command -v pyenv &>/dev/null && eval "$(pyenv init -)"
 
 # nvm (lazy — only loads when you call nvm/node/npm/npx)
 export NVM_DIR="$HOME/.nvm"
+# Eagerly add the most recent node to PATH so tools like Mason can find npm
+# without fully loading nvm (which is slow).
+if [[ -d "$NVM_DIR/versions/node" ]]; then
+    _nvm_default_node="$(ls -d "$NVM_DIR"/versions/node/v* 2>/dev/null | sort -V | tail -1)"
+    [[ -n "$_nvm_default_node" ]] && export PATH="$_nvm_default_node/bin:$PATH"
+    unset _nvm_default_node
+fi
 _nvm_lazy_load() {
     unfunction nvm node npm npx 2>/dev/null
     [[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh"
