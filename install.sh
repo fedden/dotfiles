@@ -254,10 +254,18 @@ setup_github_auth() {
     # with an interactive prompt in non-tty environments).
     local token="$GITHUB_TOKEN"
     unset GITHUB_TOKEN
-    printf '%s\n' "$token" | gh auth login --with-token
-    gh auth setup-git < /dev/null
+    if printf '%s\n' "$token" | gh auth login --with-token 2>&1; then
+        gh auth setup-git < /dev/null
+        ok "GitHub authenticated via gh"
+    else
+        # gh auth login can fail if the token lacks scopes (e.g. read:org).
+        # Fall back to configuring git HTTPS credentials directly so that
+        # git clone still works even without full gh CLI auth.
+        warn "gh auth login failed — configuring git credentials directly"
+        git config --global url."https://x-access-token:${token}@github.com/".insteadOf "https://github.com/"
+        ok "Git HTTPS credentials configured"
+    fi
     export GITHUB_TOKEN="$token"
-    ok "GitHub authenticated"
 }
 
 # ── Set default shell to zsh ───────────────────────────────────
