@@ -32,13 +32,15 @@ if [[ -d "$NVM_DIR/versions/node" ]]; then
     [[ -n "$_nvm_default_node" ]] && export PATH="$_nvm_default_node/bin:$PATH"
     unset _nvm_default_node
 fi
-_nvm_lazy_load() {
-    unfunction nvm node npm npx 2>/dev/null
-    [[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh"
-    [[ -s "$NVM_DIR/bash_completion" ]] && source "$NVM_DIR/bash_completion"
-}
+# Lazy-load wrappers — inlined so each function is self-contained
+# (Claude Code's shell snapshots don't capture helper functions like _nvm_lazy_load).
 for cmd in nvm node npm npx; do
-    eval "$cmd() { _nvm_lazy_load; $cmd \"\$@\" }"
+    eval "$cmd() {
+        unfunction nvm node npm npx 2>/dev/null
+        [[ -s \"\$NVM_DIR/nvm.sh\" ]] && source \"\$NVM_DIR/nvm.sh\"
+        [[ -s \"\$NVM_DIR/bash_completion\" ]] && source \"\$NVM_DIR/bash_completion\"
+        $cmd \"\$@\"
+    }"
 done
 
 # Google Cloud SDK
@@ -60,7 +62,7 @@ export BAT_THEME="ansi"
 # Claude Code only needs PATH and env vars above. Skip interactive setup
 # (prompt, completions, key bindings, plugins, zoxide) to avoid interference
 # with the Bash tool.
-if [[ -n "$CLAUDE_CODE" ]]; then
+if [[ -n "$CLAUDE_CODE" ]] || [[ -n "$CLAUDECODE" ]]; then
     return 0 2>/dev/null || exit 0
 fi
 
